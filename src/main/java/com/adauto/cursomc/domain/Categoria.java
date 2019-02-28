@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 
 @Entity
 public class Categoria implements Serializable{
@@ -21,7 +23,8 @@ public class Categoria implements Serializable{
 	private Integer id;
 	private String nome;
 	
-	@ManyToMany(mappedBy="categorias")
+	@JsonManagedReference //to dizendo que eh de boa serializar a lista de produtos para evtar aquela chamada ciclica, vc faz no lado que vc quer q venha os objetos associados
+	@ManyToMany(mappedBy="categorias") 
 	private List<Produto> produtos = new ArrayList<>(); //aqui eu avisei que minha lista categorias esta fzd todo aquele processo de mapeamento para n ter que repetir o join table ,column etc
 	
 	public Categoria() {
