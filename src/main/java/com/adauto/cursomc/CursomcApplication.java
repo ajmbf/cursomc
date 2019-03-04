@@ -8,18 +8,25 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import com.adauto.cursomc.domain.Categoria;
+import com.adauto.cursomc.domain.Cidade;
+import com.adauto.cursomc.domain.Estado;
 import com.adauto.cursomc.domain.Produto;
 import com.adauto.cursomc.repositories.CategoriaRepository;
+import com.adauto.cursomc.repositories.CidadeRepository;
+import com.adauto.cursomc.repositories.EstadoRepository;
 import com.adauto.cursomc.repositories.ProdutoRepository;
 
 @SpringBootApplication
 public class CursomcApplication implements CommandLineRunner {
 
 	@Autowired
-	private CategoriaRepository categoriarepository;
-	
+	private CategoriaRepository categoriaRepository;
 	@Autowired
-	private ProdutoRepository produtorepository;
+	private ProdutoRepository produtoRepository;
+	@Autowired
+	private EstadoRepository estadoRepository;
+	@Autowired
+	private CidadeRepository cidadeRepository;
 	
 	public static void main(String[] args) {
 		SpringApplication.run(CursomcApplication.class, args);
@@ -42,8 +49,23 @@ public class CursomcApplication implements CommandLineRunner {
 		p2.getCategorias().addAll(Arrays.asList(cat1,cat2));
 		p3.getCategorias().addAll(Arrays.asList(cat1));
 		
-		categoriarepository.saveAll(Arrays.asList(cat1,cat2));
-		produtorepository.saveAll(Arrays.asList(p1,p2,p3));
+		
+		categoriaRepository.saveAll(Arrays.asList(cat1,cat2));
+		produtoRepository.saveAll(Arrays.asList(p1,p2,p3));
+		
+		Estado est1 = new Estado("Minas Gerais", null);
+		Estado est2 = new Estado("São Paulo", null);
+		
+		Cidade c1 = new Cidade(null, "Uberlandia", est1);
+		Cidade c2 = new Cidade(null, "São Paulo", est2); //associacao muitos pra um, pois a gnt n precisa dar aqueles add array de cima
+		Cidade c3 = new Cidade(null, "Campinas", est2);
+		
+		est1.getCidades().addAll(Arrays.asList(c1));
+		est2.getCidades().addAll(Arrays.asList(c2,c3));
+		
+		estadoRepository.saveAll(Arrays.asList(est1,est2)); //respeitando a hierarquia de quem tem q ser salvo primeiro
+		cidadeRepository.saveAll(Arrays.asList(c1,c2,c3));
+		
 	}
 
 }
