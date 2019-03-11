@@ -39,6 +39,9 @@ public class Cliente implements Serializable{
 	@CollectionTable(name = "TELEFONE") //NAO MAPEAMOS COMO SENDO UMA ENTIDADE ENTAO FAZEMOS ASSIM PARA CRIAR UMA TABELA DE TELEFONE 
 	private Set<String> telefones = new HashSet<>(); //set eh um conjunto que nao aceita repeticoes, ele poderia implementar uma entidade porem achou melhor assim
 	
+	@OneToMany(mappedBy = "cliente")
+	private List<Pedido> pedidos = new ArrayList<>();
+	
 	public Cliente() {
 		
 	}
@@ -111,6 +114,14 @@ public class Cliente implements Serializable{
 	public static long getSerialversionuid() {
 		return serialVersionUID;
 	}
+	
+	public List<Pedido> getPedidos() {
+		return pedidos;
+	}
+
+	public void setPedidos(List<Pedido> pedidos) {
+		this.pedidos = pedidos;
+	}
 
 	@Override
 	public int hashCode() {
@@ -136,5 +147,7 @@ public class Cliente implements Serializable{
 			return false;
 		return true;
 	}
+
+	
 	
 }
