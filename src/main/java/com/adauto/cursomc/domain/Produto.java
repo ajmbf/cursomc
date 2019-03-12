@@ -16,6 +16,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 public class Produto implements Serializable{
@@ -36,6 +37,7 @@ public class Produto implements Serializable{
 			)
 	private List<Categoria> categorias = new ArrayList<>(); //como eh muitos pra muitos tem quer declarar para criar a 3 tabela com os ids(A TABELA SE CHAMA PRODUTO_CATEGORIA) E FAZ UM JOIN
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "id.produto")
 	private Set<ItemPedido> itens = new HashSet<>(); //SET para que a propria linguagem java garanta que n havera repeticoes
 	
@@ -50,6 +52,7 @@ public class Produto implements Serializable{
 		this.preco = preco;
 	}
 	
+	@JsonIgnore
 	public List<Pedido> getPedidos(){
 		List<Pedido> lista = new ArrayList<>();
 		for(ItemPedido x : itens) {

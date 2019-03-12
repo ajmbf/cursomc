@@ -5,12 +5,15 @@ import java.util.Date;
 import javax.persistence.Entity;
 
 import com.adauto.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 @Entity //chave primaria herdada da subclasse
 public class PagamentoComBoleto extends Pagamento{ //o hashcode e equals ja ta em pagamento
 	private static final long serialVersionUID = 1L;
 
+		@JsonFormat(pattern = "dd/MM/yyyy")
 		private Date dataVencimento;
+		@JsonFormat(pattern = "dd/MM/yyyy")
 		private Date dataPagamento;
 		
 		public PagamentoComBoleto() {

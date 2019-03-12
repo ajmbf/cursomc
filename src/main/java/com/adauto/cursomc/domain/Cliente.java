@@ -15,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 import com.adauto.cursomc.domain.enums.TipoCliente;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
@@ -39,6 +40,7 @@ public class Cliente implements Serializable{
 	@CollectionTable(name = "TELEFONE") //NAO MAPEAMOS COMO SENDO UMA ENTIDADE ENTAO FAZEMOS ASSIM PARA CRIAR UMA TABELA DE TELEFONE 
 	private Set<String> telefones = new HashSet<>(); //set eh um conjunto que nao aceita repeticoes, ele poderia implementar uma entidade porem achou melhor assim
 	
+	@JsonBackReference
 	@OneToMany(mappedBy = "cliente")
 	private List<Pedido> pedidos = new ArrayList<>();
 	

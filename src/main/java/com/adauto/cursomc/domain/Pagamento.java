@@ -11,6 +11,7 @@ import javax.persistence.MapsId;
 import javax.persistence.OneToOne;
 
 import com.adauto.cursomc.domain.enums.EstadoPagamento;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 @Entity
 @Inheritance(strategy = InheritanceType.JOINED) //tem duas estrategias uma tabela com as duas heranças(tabela unica tem mais performance mas muitos nulls) ou gerar uma tabela para cada subclasse
@@ -21,6 +22,7 @@ public abstract class Pagamento implements Serializable{
 	private Integer id; //nao tem o incrementador automatico pq o id tem q er o msm do pedido
 	private Integer estado;
 	
+	@JsonBackReference
 	@OneToOne
 	@JoinColumn(name = "pedido_id")
 	@MapsId //mapeamos o atributo id de pedido
